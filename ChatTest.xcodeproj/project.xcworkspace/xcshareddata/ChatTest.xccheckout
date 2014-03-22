@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>ADF39726-2057-4BCF-A07B-4D932819BCD6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ChatTest</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F8D60D0F-4E3D-4C3A-BC0C-E2308EBF419B</key>
+		<string>https://github.com/slycrel/AutoLayoutChatTest.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ChatTest.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F8D60D0F-4E3D-4C3A-BC0C-E2308EBF419B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/slycrel/AutoLayoutChatTest.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F8D60D0F-4E3D-4C3A-BC0C-E2308EBF419B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F8D60D0F-4E3D-4C3A-BC0C-E2308EBF419B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AutoLayoutChatTest</string>
+		</dict>
+	</array>
+</dict>
+</plist>
