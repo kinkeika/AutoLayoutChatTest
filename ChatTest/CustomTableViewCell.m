@@ -9,7 +9,6 @@
 #import "CustomTableViewCell.h"
 #import "UIImage+ImageBubbles.h"
 #import "TestTableViewController.h"
-#import "UIView+AutoLayout.h"
 
 
 extern TestTableViewController* g_testTableController;
@@ -25,7 +24,6 @@ extern TestTableViewController* g_testTableController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *timestampHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *readReceiptheightConstraint;
 
-@property (assign, nonatomic) BOOL constraintsLoaded;
 @property (assign, nonatomic) CGFloat timestampHeight;
 @property (assign, nonatomic) CGFloat senderHeight;
 @property (assign, nonatomic) CGFloat readReceiptHeight;
@@ -34,15 +32,6 @@ extern TestTableViewController* g_testTableController;
 
 
 @implementation CustomTableViewCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
 
 
 - (void)awakeFromNib
@@ -56,64 +45,6 @@ extern TestTableViewController* g_testTableController;
     self.senderHeight = self.sender.frame.size.height;
   if (!self.readReceiptHeight)
     self.readReceiptHeight = self.readReceipt.frame.size.height;
-
-  self.constraintsLoaded = YES;
-}
-
-
-- (void)updateConstraints
-{
-  [super updateConstraints];
-
-  return;
-  
-  if (!self.constraintsLoaded)
-  {
-    [self autoRemoveConstraintsAffectingViewAndSubviews];
-    
-    CGFloat marginOffset = 10.0;
-    
-    // timestamp is always first, up top
-    [self.timestamp autoRemoveConstraintsAffectingViewAndSubviews];
-    [self.timestamp autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
-    [self.timestamp autoPinEdge:ALEdgeLeading toEdge:ALEdgeLeading ofView:self];
-    [self.timestamp autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:self];
-    [self.timestamp autoSetDimension:ALDimensionHeight toSize:self.timestampHeight];
-    
-    // sender, pin to timestamp and edges.
-    [self.sender autoRemoveConstraintsAffectingViewAndSubviews];
-    [self.sender autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.timestamp withOffset:kSRLabelMarginForMessageCell];
-    [self.sender autoPinEdge:ALEdgeLeading toEdge:ALEdgeLeading ofView:self withOffset:marginOffset];
-    [self.sender autoSetDimension:ALDimensionHeight toSize:self.senderHeight];
-    [self.sender autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:self withOffset:kBubbleWidthOffset];
-    
-    // bubbleView, pin to sender, left/right and the bottom to the top of the read receipt edge.
-    [self.bubbleView autoRemoveConstraintsAffectingViewAndSubviews];
-    [self.bubbleView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.sender];
-    [self.bubbleView autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:marginOffset];
-    [self.bubbleView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kBubbleWidthOffset];
-    [self.bubbleView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.readReceipt withOffset:kSRLabelMarginForMessageCell];
-    
-    // mask image (same as bubble view
-      // later
-    
-    // textView
-    [self.textView autoRemoveConstraintsAffectingViewAndSubviews];
-    [self.textView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.sender];
-    [self.textView autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:marginOffset];
-    [self.textView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kBubbleWidthOffset];
-    [self.textView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.readReceipt withOffset:kSRLabelMarginForMessageCell];
-    
-    // read receipt
-    [self.readReceipt autoRemoveConstraintsAffectingViewAndSubviews];
-    [self.readReceipt autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.bubbleView];
-    [self.readReceipt autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:marginOffset];
-    [self.readReceipt autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kBubbleWidthOffset];
-    [self.readReceipt autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kSRLabelMarginForMessageCell];
-    [self.readReceipt autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self withOffset:kSRLabelMarginForMessageCell];
-    
-    self.constraintsLoaded = YES;
-  }
 }
 
 
@@ -183,10 +114,6 @@ extern TestTableViewController* g_testTableController;
 
 - (void)loadWithData:(NSDictionary *)dict
 {
-  // make sure all of our constraints are set up properly before we do this the first time.
-  if (!self.constraintsLoaded)
-    [self updateConstraints];
-  
   self.textView.text = dict[@"message"];
   self.sender.text = dict[@"sender"];
   self.timestamp.text = dict[@"timestamp"];

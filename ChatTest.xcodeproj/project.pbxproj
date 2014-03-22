@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D816645018DB59E100D75B9B /* UIImage+ImageBubbles.m in Sources */ = {isa = PBXBuildFile; fileRef = D816644F18DB59E100D75B9B /* UIImage+ImageBubbles.m */; };
-		D816645518DB91C400D75B9B /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D816645418DB91C400D75B9B /* UIView+AutoLayout.m */; };
 		D8DC50D718DB42330099A30B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8DC50D618DB42330099A30B /* Foundation.framework */; };
 		D8DC50D918DB42330099A30B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8DC50D818DB42330099A30B /* CoreGraphics.framework */; };
 		D8DC50DB18DB42330099A30B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8DC50DA18DB42330099A30B /* UIKit.framework */; };
@@ -45,8 +44,6 @@
 /* Begin PBXFileReference section */
 		D816644E18DB59E100D75B9B /* UIImage+ImageBubbles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageBubbles.h"; sourceTree = "<group>"; };
 		D816644F18DB59E100D75B9B /* UIImage+ImageBubbles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageBubbles.m"; sourceTree = "<group>"; };
-		D816645318DB91C400D75B9B /* UIView+AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoLayout.h"; sourceTree = "<group>"; };
-		D816645418DB91C400D75B9B /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
 		D8DC50D318DB42330099A30B /* ChatTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8DC50D618DB42330099A30B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8DC50D818DB42330099A30B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -189,8 +186,6 @@
 		D8DC511018DB431E0099A30B /* external */ = {
 			isa = PBXGroup;
 			children = (
-				D816645318DB91C400D75B9B /* UIView+AutoLayout.h */,
-				D816645418DB91C400D75B9B /* UIView+AutoLayout.m */,
 				D8DC511D18DB433C0099A30B /* DAKeyboardControl */,
 				D8DC511118DB432C0099A30B /* PHFComposeBarView_Button.h */,
 				D8DC511218DB432C0099A30B /* PHFComposeBarView_Button.m */,
@@ -312,7 +307,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8DC511918DB432C0099A30B /* PHFComposeBarView_Button.m in Sources */,
-				D816645518DB91C400D75B9B /* UIView+AutoLayout.m in Sources */,
 				D8DC50E318DB42330099A30B /* main.m in Sources */,
 				D8DC511B18DB432C0099A30B /* PHFComposeBarView.m in Sources */,
 				D8DC50F018DB42330099A30B /* SRViewController.m in Sources */,
