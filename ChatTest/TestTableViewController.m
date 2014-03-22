@@ -19,27 +19,12 @@ TestTableViewController* g_testTableController = nil;
 
 @implementation TestTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-  self = [super initWithStyle:style];
-  if (self) {
-    // Custom initialization
-  }
-  return self;
-}
 
 - (void)viewDidLoad
 {
   [super viewDidLoad];
   
   g_testTableController = self;
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
 }
 
 
@@ -66,13 +51,18 @@ TestTableViewController* g_testTableController = nil;
   for (int x = 0; x < 10; x++)
   {
     [longString appendFormat:@"\rExtra (line %d)", x + 2];
-    NSDictionary *dict = @{
-//                           @"timestamp": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterMediumStyle],
-                           @"message": [NSString stringWithString:longString],
-                           @"sender": @"me",
-//                           @"readreceipt": @"Read"
-//                           @"url": @"http://www.greatpetnet.com/wp-content/uploads/2008/07/MadCat.jpg"
-                           };
+    NSMutableDictionary *dict = [@{
+                                   @"timestamp": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterMediumStyle],
+                                   @"message": [NSString stringWithString:longString],
+                                   @"sender": @"me",
+                                   @"readreceipt": @"Read",
+//                                   @"url": @"http://www.greatpetnet.com/wp-content/uploads/2008/07/MadCat.jpg"
+                                   } mutableCopy];
+    
+    // every other from a different person.
+    if (x % 2 == 0 && dict[@"sender"] != nil)
+      dict[@"sender"] = @"you";
+    
     [array addObject:dict];
   }
   
