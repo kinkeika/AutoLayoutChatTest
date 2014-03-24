@@ -12,4 +12,6 @@
 
 - (void)setup;
 
+@property (nonatomic, strong) NSMutableDictionary *imageCache;
+
 @end

@@ -87,11 +87,22 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VGd-AA-rl1">
-                                            <rect key="frame" x="0.0" y="42" width="240" height="123"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vdg-V4-igA" userLabel="Image View (Image)">
+                                            <rect key="frame" x="0.0" y="42" width="230" height="122"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="230" id="7Dg-Mk-CGr"/>
+                                            </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ELq-a9-mue">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ELq-a9-mue" userLabel="Image View (Mask)">
+                                            <rect key="frame" x="0.0" y="42" width="230" height="122"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="230" id="YYt-hW-olv"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VGd-AA-rl1" userLabel="Image View (Bubble)">
                                             <rect key="frame" x="0.0" y="42" width="240" height="122"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -115,14 +126,17 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ELq-a9-mue" firstAttribute="top" secondItem="Ikd-Vc-0gH" secondAttribute="bottom" id="4MO-0H-VgQ"/>
+                                        <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="Vdg-V4-igA" secondAttribute="bottom" id="6xD-BM-m2h"/>
+                                        <constraint firstItem="Vdg-V4-igA" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" priority="750" id="7sj-YN-No0"/>
                                         <constraint firstAttribute="trailing" secondItem="VGd-AA-rl1" secondAttribute="trailing" constant="80" id="ARs-Nl-0EQ"/>
-                                        <constraint firstAttribute="trailing" secondItem="ELq-a9-mue" secondAttribute="trailing" constant="80" id="Cn9-2C-rSL"/>
+                                        <constraint firstAttribute="trailing" secondItem="ELq-a9-mue" secondAttribute="trailing" priority="250" id="Cn9-2C-rSL"/>
                                         <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="ELq-a9-mue" secondAttribute="bottom" id="G0q-ix-Eee"/>
+                                        <constraint firstAttribute="trailing" secondItem="Vdg-V4-igA" secondAttribute="trailing" priority="250" id="LFV-ZI-nzy"/>
                                         <constraint firstItem="VGd-AA-rl1" firstAttribute="top" secondItem="Ikd-Vc-0gH" secondAttribute="bottom" id="NeV-Ko-hdS"/>
                                         <constraint firstItem="TfQ-dN-4cO" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" constant="10" id="QBk-pd-oi4"/>
                                         <constraint firstItem="hrq-UI-ugb" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" id="S2W-7O-bsq"/>
                                         <constraint firstItem="Ikd-Vc-0gH" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" constant="10" id="Si0-rd-EIx"/>
-                                        <constraint firstItem="ELq-a9-mue" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" id="TB1-6h-nIQ"/>
+                                        <constraint firstItem="ELq-a9-mue" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" priority="750" id="TB1-6h-nIQ"/>
                                         <constraint firstItem="VGd-AA-rl1" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" id="WjV-rm-mmS"/>
                                         <constraint firstAttribute="bottom" secondItem="57n-PA-S8y" secondAttribute="bottom" id="X24-Ju-4a2"/>
                                         <constraint firstAttribute="trailing" secondItem="57n-PA-S8y" secondAttribute="trailing" constant="10" id="YcM-gt-eSC"/>
@@ -131,9 +145,10 @@
                                         <constraint firstAttribute="trailing" secondItem="hrq-UI-ugb" secondAttribute="trailing" id="efh-7v-DEW"/>
                                         <constraint firstAttribute="trailing" secondItem="TfQ-dN-4cO" secondAttribute="trailing" constant="85" id="hjo-Oz-w5H"/>
                                         <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="TfQ-dN-4cO" secondAttribute="bottom" id="j8l-fj-C7G"/>
-                                        <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="VGd-AA-rl1" secondAttribute="bottom" constant="-1" id="jYO-Iu-XTu"/>
+                                        <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="VGd-AA-rl1" secondAttribute="bottom" id="jYO-Iu-XTu"/>
                                         <constraint firstItem="TfQ-dN-4cO" firstAttribute="top" secondItem="Ikd-Vc-0gH" secondAttribute="bottom" id="jtM-7U-cme"/>
                                         <constraint firstItem="Ikd-Vc-0gH" firstAttribute="top" secondItem="hrq-UI-ugb" secondAttribute="bottom" id="lPF-ya-gL8"/>
+                                        <constraint firstItem="Vdg-V4-igA" firstAttribute="top" secondItem="Ikd-Vc-0gH" secondAttribute="bottom" id="onZ-Oc-XB7"/>
                                         <constraint firstItem="hrq-UI-ugb" firstAttribute="top" secondItem="pUm-Xf-r8u" secondAttribute="top" id="xak-gB-4Au"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -141,9 +156,13 @@
                                     <outlet property="bubbleView" destination="VGd-AA-rl1" id="6n9-qB-5ek"/>
                                     <outlet property="bubbleViewLeadingSpaceConstraint" destination="WjV-rm-mmS" id="Xpu-sB-0Ji"/>
                                     <outlet property="bubbleViewTrailingSpaceConstraint" destination="ARs-Nl-0EQ" id="60A-jA-Lgu"/>
+                                    <outlet property="imageViewLeadingConstraint" destination="7sj-YN-No0" id="G5D-hF-SZX"/>
+                                    <outlet property="imageViewTrailingConstraint" destination="LFV-ZI-nzy" id="1fX-Gt-plg"/>
+                                    <outlet property="imageViewWidthConstraint" destination="7Dg-Mk-CGr" id="mzt-of-qOa"/>
                                     <outlet property="maskImage" destination="ELq-a9-mue" id="qV0-Qj-lsr"/>
                                     <outlet property="maskViewLeadingSpaceConstraint" destination="TB1-6h-nIQ" id="7jQ-FV-Nwa"/>
                                     <outlet property="maskViewTrailingSpaceConstraint" destination="Cn9-2C-rSL" id="eyd-vC-nxS"/>
+                                    <outlet property="maskViewWidthConstraint" destination="YYt-hW-olv" id="348-bc-5ns"/>
                                     <outlet property="readReceipt" destination="57n-PA-S8y" id="luM-Uz-gzE"/>
                                     <outlet property="readReceiptheightConstraint" destination="xFL-id-zC4" id="2rG-hO-taq"/>
                                     <outlet property="sender" destination="Ikd-Vc-0gH" id="o8T-ut-5YL"/>
@@ -153,6 +172,7 @@
                                     <outlet property="textViewTrailingSpaceConstraint" destination="hjo-Oz-w5H" id="SxV-TE-SUd"/>
                                     <outlet property="timestamp" destination="hrq-UI-ugb" id="sTb-no-hcV"/>
                                     <outlet property="timestampHeightConstraint" destination="g67-gI-wy5" id="ybE-3a-gRs"/>
+                                    <outlet property="urlImageView" destination="Vdg-V4-igA" id="STR-ZF-Cko"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

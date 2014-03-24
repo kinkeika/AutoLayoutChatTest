@@ -14,9 +14,31 @@
 extern TestTableViewController* g_testTableController;
 
 
+UIImage* ImageFromCacheWithURL(NSString* url)
+{
+  static NSMutableDictionary *storage = nil;
+  
+  if (!storage)
+    storage = [NSMutableDictionary dictionary];
+  
+  UIImage *image = storage[url];
+  if (!image && url.length)
+  {
+    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    if (image)
+      storage[url] = image;
+  }
+  
+  return image;
+}
+
+
 #define kMaxBubbleWidth               ([UIScreen mainScreen].applicationFrame.size.width * 0.7)   // 70%
 #define kBubbleWidthOffset            ([UIScreen mainScreen].applicationFrame.size.width - kMaxBubbleWidth)
 #define kSRLabelMarginForMessageCell  5.0
+
+#define kStandardThumbnailSize        CGSizeMake([UIScreen mainScreen].applicationFrame.size.width * 0.45, [UIScreen mainScreen].applicationFrame.size.width * 0.45)
+#define kIconThumbnailSize            CGSizeMake([UIScreen mainScreen].applicationFrame.size.width * 0.25, [UIScreen mainScreen].applicationFrame.size.width * 0.25)
 
 @interface CustomTableViewCell ()
 
@@ -29,17 +51,24 @@ extern TestTableViewController* g_testTableController;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskViewLeadingSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskViewTrailingSpaceConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskViewWidthConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewLeadingSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewTrailingSpaceConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewTrailingConstraint;
 
 @property (assign, nonatomic) CGFloat timestampHeight;
 @property (assign, nonatomic) CGFloat senderHeight;
 @property (assign, nonatomic) CGFloat readReceiptHeight;
 @property (assign, nonatomic) CGFloat textViewLeadingConstant;
+@property (assign, nonatomic) CGFloat textViewTrailingConstant;
 @property (assign, nonatomic) CGFloat maskViewLeadingConstant;
+@property (assign, nonatomic) CGFloat maskViewTrailingConstant;
 @property (assign, nonatomic) CGFloat bubbleViewLeadingConstant;
+@property (assign, nonatomic) CGFloat bubbleViewTrailingConstant;
 
 @end
 
@@ -62,8 +91,11 @@ extern TestTableViewController* g_testTableController;
   // remember base left offsets
   
   self.textViewLeadingConstant = self.textViewLeadingSpaceConstraint.constant;
+  self.textViewTrailingConstant = self.textViewTrailingSpaceConstraint.constant;
   self.maskViewLeadingConstant = self.maskViewLeadingSpaceConstraint.constant;
+  self.maskViewTrailingConstant = self.maskViewTrailingSpaceConstraint.constant;
   self.bubbleViewLeadingConstant = self.bubbleViewLeadingSpaceConstraint.constant;
+  self.bubbleViewTrailingConstant = self.bubbleViewTrailingSpaceConstraint.constant;
 }
 
 
@@ -82,6 +114,9 @@ extern TestTableViewController* g_testTableController;
   
   // figure out text height
   str = message[@"message"];
+  if (message[@"url"])        // images override text
+    str = nil;
+  
   if (str.length)
   {
     CGSize size = [CustomTableViewCell textSizeForMessage:message withFont:[UIFont systemFontOfSize:14]];
@@ -96,7 +131,9 @@ extern TestTableViewController* g_testTableController;
   }
   else
   {
-    // image height.  Not yet done!
+    // image height.
+    retVal += kStandardThumbnailSize.height;
+#warning    // if this is an icon, return the image icon size instead of the actual image
   }
   
   return retVal;
@@ -121,6 +158,9 @@ extern TestTableViewController* g_testTableController;
   
   return CGRectIntegral(stringRect).size;
 }
+
+
+#pragma mark -
 
 
 - (void)shiftCell:(BOOL)toRight
@@ -188,6 +228,47 @@ extern TestTableViewController* g_testTableController;
 }
 
 
+- (void)updateWidthConstraints:(BOOL)toRight
+{
+  if (!self.maskImage.hidden)
+  {
+    /* tricksy.  We set a constraint holding the image and image mask to the left AND the
+     right.  To choose which we want we change the priority of the constraints.  An 
+     alternate method would be to remove the proper constraint and re-create the one
+     we want.  I hear this is expensive, though if that's any different than changing
+     the priority I don't know.
+     */
+    
+    self.imageViewWidthConstraint.constant = kStandardThumbnailSize.width;
+    self.maskViewWidthConstraint.constant = kStandardThumbnailSize.width;
+    
+    // image adjustments
+    if (toRight)
+    {
+      // shifted right
+      self.maskViewLeadingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
+      self.imageViewLeadingConstraint.priority = UILayoutPriorityFittingSizeLevel;
+      
+      self.maskViewTrailingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
+      self.imageViewTrailingConstraint.priority = UILayoutPriorityDefaultHigh;
+    }
+    else
+    {
+      // shifted left
+      self.maskViewLeadingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
+      self.imageViewLeadingConstraint.priority = UILayoutPriorityDefaultHigh;
+      
+      self.maskViewTrailingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
+      self.imageViewTrailingConstraint.priority = UILayoutPriorityFittingSizeLevel;
+    }
+  }
+  else
+  {
+    // text adjustments
+  }
+}
+
+
 - (void)loadWithData:(NSDictionary *)message nextMessageData:(NSDictionary *)nextMessage
 {
   self.textView.text = message[@"message"];
@@ -201,24 +282,41 @@ extern TestTableViewController* g_testTableController;
   if (url.length)
   {
     // handle image laoding here
+    self.textView.text = nil;
+    self.bubbleView.hidden = YES;
+
+    self.urlImageView.image = ImageFromCacheWithURL(url);
+    self.urlImageView.hidden = NO;
+    
+    self.maskImage.image = [self maskImageForType:messageFromMe];
+    self.maskImage.hidden = NO;
   }
   else
   {
+    self.bubbleView.hidden = NO;
+    self.urlImageView.hidden = YES;
+    self.urlImageView.image = nil;
+    self.maskImage.hidden = YES;
+    self.maskImage.image = nil;
+
     // handle background bubble
-    self.bubbleView.image = [self bubbleImageForColor:[UIColor grayColor] type:!messageFromMe];  // YES is left
+    self.bubbleView.image = [self bubbleImageForColor:[UIColor grayColor] type:messageFromMe];  // YES is left
   }
   
   // update data-based constraints
+  // sender
   if (!self.sender.text.length)
     self.senderHeightConstraint.constant = 0;
   else
     self.senderHeightConstraint.constant = self.senderHeight;
 
+  // timestamp
   if (!self.timestamp.text.length)
     self.timestampHeightConstraint.constant = 0;
   else
     self.timestampHeightConstraint.constant = self.timestampHeight;
-  
+
+  // read receipt
   if (!self.readReceipt.text.length)
   {
     if ([nextMessage[@"timestamp"] length] || [nextMessage[@"sender"] length])
@@ -230,15 +328,13 @@ extern TestTableViewController* g_testTableController;
   }
   
   // update constraints based on left/right
-  if (messageFromMe)
-    [self shiftCell:YES];
-  else
-    [self shiftCell:NO];
+  [self shiftCell:messageFromMe];
+  
+  // update constraints for non-standard widths (short text or images)
+  [self updateWidthConstraints:messageFromMe];
     
   // until we make changes this is meaningless
   [self setNeedsUpdateConstraints];
-  
-  self.maskImage.hidden = YES;
 }
 
 
@@ -249,6 +345,21 @@ extern TestTableViewController* g_testTableController;
 {
   UIImage *image = [UIImage imageNamed:@"ImageBubbleMask"];
   return [image stretchableImageWithLeftCapWidth:image.size.width / 2.0 topCapHeight:image.size.height / 2.0];
+}
+
+
+- (UIImage *)maskImageForType:(BOOL)left
+{
+  UIImage *normalBubble = [self imageBackgroundMask];
+  
+  if (left == YES)
+    normalBubble = [normalBubble js_imageFlippedHorizontal];
+  
+  // make image stretchable from center point
+  CGPoint center = CGPointMake(normalBubble.size.width / 2.0f, normalBubble.size.height / 2.0f);
+  UIEdgeInsets capInsets = UIEdgeInsetsMake(center.y, center.x, center.y, center.x);
+  
+  return [normalBubble resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch];
 }
 
 

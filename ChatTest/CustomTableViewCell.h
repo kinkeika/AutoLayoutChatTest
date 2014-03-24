@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timestamp;
 @property (weak, nonatomic) IBOutlet UILabel *sender;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleView;
+@property (weak, nonatomic) IBOutlet UIImageView *urlImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *maskImage;
 @property (weak, nonatomic) IBOutlet UILabel *readReceipt;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
