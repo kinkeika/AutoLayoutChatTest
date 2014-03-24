@@ -188,16 +188,16 @@ extern TestTableViewController* g_testTableController;
 }
 
 
-- (void)loadWithData:(NSDictionary *)dict
+- (void)loadWithData:(NSDictionary *)message nextMessageData:(NSDictionary *)nextMessage
 {
-  self.textView.text = dict[@"message"];
-  self.sender.text = dict[@"sender"];
-  self.timestamp.text = dict[@"timestamp"];
-  self.readReceipt.text = dict[@"readreceipt"];
+  self.textView.text = message[@"message"];
+  self.sender.text = message[@"sender"];
+  self.timestamp.text = message[@"timestamp"];
+  self.readReceipt.text = message[@"readreceipt"];
   
-  BOOL messageFromMe = [dict[@"sender"] isEqualToString:@"me"];
+  BOOL messageFromMe = [message[@"sender"] isEqualToString:@"me"];
   
-  NSString* url = dict[@"url"];
+  NSString* url = message[@"url"];
   if (url.length)
   {
     // handle image laoding here
@@ -214,15 +214,20 @@ extern TestTableViewController* g_testTableController;
   else
     self.senderHeightConstraint.constant = self.senderHeight;
 
-  if (!self.readReceipt.text.length)
-    self.readReceiptheightConstraint.constant = 0;
-  else
-    self.readReceiptheightConstraint.constant = self.readReceiptHeight;
-  
   if (!self.timestamp.text.length)
     self.timestampHeightConstraint.constant = 0;
   else
     self.timestampHeightConstraint.constant = self.timestampHeight;
+  
+  if (!self.readReceipt.text.length)
+  {
+    if ([nextMessage[@"timestamp"] length] || [nextMessage[@"sender"] length])
+      self.readReceiptheightConstraint.constant = 0;
+  }
+  else
+  {
+    self.readReceiptheightConstraint.constant = self.readReceiptHeight;
+  }
   
   // update constraints based on left/right
   if (messageFromMe)

@@ -52,7 +52,7 @@ TestTableViewController* g_testTableController = nil;
   {
     [longString appendFormat:@"\rExtra (line %d)", x + 2];
     NSMutableDictionary *dict = [@{
-                                   @"timestamp": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterMediumStyle],
+//                                   @"timestamp": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterMediumStyle],
                                    @"message": [NSString stringWithString:longString],
                                    @"sender": @"me",
                                    @"readreceipt": @"Read",
@@ -85,8 +85,13 @@ TestTableViewController* g_testTableController = nil;
 {
   CustomTableViewCell *cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"superCoolCell" forIndexPath:indexPath];
   
+  NSDictionary *nextMessage = nil;
+  
+  if (indexPath.row + 1 < self.dataArray.count)
+    nextMessage = [self.dataArray objectAtIndex:indexPath.row + 1];
+  
   // Configure the cell...
-  [cell loadWithData:[self.dataArray objectAtIndex:indexPath.row]];
+  [cell loadWithData:[self.dataArray objectAtIndex:indexPath.row] nextMessageData:nextMessage];
   
   return cell;
 }

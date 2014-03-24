@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
 + (CGSize)textSizeForMessage:(NSDictionary *)message withFont:(UIFont *)font;
-- (void)loadWithData:(NSDictionary *)dict;
+- (void)loadWithData:(NSDictionary *)message nextMessageData:(NSDictionary *)nextMessage;
 + (CGFloat)heightForCellWithData:(NSDictionary *)message nextRowData:(NSDictionary *)nextMessage;
 
 @end
