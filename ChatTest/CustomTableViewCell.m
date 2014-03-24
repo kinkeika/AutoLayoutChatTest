@@ -24,15 +24,12 @@ extern TestTableViewController* g_testTableController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *timestampHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *readReceiptheightConstraint;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewTrailingSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewLeadingSpaceConstraint;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskViewLeadingSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskViewTrailingSpaceConstraint;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewLeadingSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewTrailingSpaceConstraint;
 
@@ -70,7 +67,7 @@ extern TestTableViewController* g_testTableController;
 }
 
 
-+ (CGFloat)heightForCellWithData:(NSDictionary *)message
++ (CGFloat)heightForCellWithData:(NSDictionary *)message nextRowData:(NSDictionary *)nextMessage
 {
   CGFloat labelHeight = 21.0;
   CGFloat retVal = 0;
@@ -92,12 +89,16 @@ extern TestTableViewController* g_testTableController;
     
     // add the non-stretchable parts of the background bubble here as well.
     retVal += labelHeight;
+
+    // check to see if no read receipt here and a sender or timestamp is on the next row and get rid of the read receipt margin
+    if (![message[@"readreceipt"] length] && ([nextMessage[@"sender"] length] || [nextMessage[@"timestamp"] length]))
+      retVal -= labelHeight;
   }
   else
   {
     // image height.  Not yet done!
   }
-    
+  
   return retVal;
 }
 
@@ -228,7 +229,7 @@ extern TestTableViewController* g_testTableController;
     [self shiftCell:YES];
   else
     [self shiftCell:NO];
-  
+    
   // until we make changes this is meaningless
   [self setNeedsUpdateConstraints];
   

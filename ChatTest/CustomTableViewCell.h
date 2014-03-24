@@ -20,6 +20,6 @@
 
 + (CGSize)textSizeForMessage:(NSDictionary *)message withFont:(UIFont *)font;
 - (void)loadWithData:(NSDictionary *)dict;
-+ (CGFloat)heightForCellWithData:(NSDictionary *)message;
++ (CGFloat)heightForCellWithData:(NSDictionary *)message nextRowData:(NSDictionary *)nextMessage;
 
 @end

@@ -63,6 +63,10 @@ TestTableViewController* g_testTableController = nil;
     if (x % 2 == 0 && dict[@"sender"] != nil)
       dict[@"sender"] = @"you";
     
+    // only on the last item
+    if (x + 1 != 10)
+      [dict removeObjectForKey:@"readreceipt"];
+    
     [array addObject:dict];
   }
   
@@ -90,7 +94,13 @@ TestTableViewController* g_testTableController = nil;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return [CustomTableViewCell heightForCellWithData:[self.dataArray objectAtIndex:indexPath.row]];
+  CGFloat numRows = [self tableView:tableView numberOfRowsInSection:indexPath.section];
+  
+  NSDictionary *nextData = nil;
+  if (numRows > indexPath.row + 1)
+    nextData = [self.dataArray objectAtIndex:indexPath.row + 1];
+
+  return [CustomTableViewCell heightForCellWithData:[self.dataArray objectAtIndex:indexPath.row] nextRowData:nextData];
 }
 
 
