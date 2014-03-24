@@ -72,21 +72,16 @@ extern TestTableViewController* g_testTableController;
 
 + (CGFloat)heightForCellWithData:(NSDictionary *)message
 {
+  CGFloat labelHeight = 21.0;
   CGFloat retVal = 0;
-
-  retVal += 4 * kSRLabelMarginForMessageCell;   // this should be shorter
   
   NSString *str = message[@"timestamp"];
   if (str.length)
-    retVal += 21;//cell.timestamp.frame.size.height;
-  else
-    retVal -= kSRLabelMarginForMessageCell;
+    retVal += labelHeight;
   
   str = message[@"sender"];
   if (str.length)
-    retVal += 21;//cell.sender.frame.size.height;
-  else
-    retVal -= kSRLabelMarginForMessageCell;
+    retVal += labelHeight;
   
   // figure out text height
   str = message[@"message"];
@@ -96,20 +91,13 @@ extern TestTableViewController* g_testTableController;
     retVal += size.height;
     
     // add the non-stretchable parts of the background bubble here as well.
-    retVal += 12;
+    retVal += labelHeight;
   }
   else
   {
     // image height.  Not yet done!
-    retVal -= kSRLabelMarginForMessageCell;
   }
-  
-  str = message[@"readreceipt"];
-  if (str.length)
-    retVal += 21;//cell.readReceipt.frame.size.height;
-  else
-    retVal -= kSRLabelMarginForMessageCell;
-  
+    
   return retVal;
 }
 
