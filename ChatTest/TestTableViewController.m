@@ -12,12 +12,10 @@
 
 TestTableViewController* g_testTableController = nil;
 
-extern UIImage* ImageFromCacheWithURL(NSString* url);
-
 
 @interface TestTableViewController ()
-@property (strong, nonatomic) NSArray* dataArray;
-@property (strong, nonatomic) NSArray* randomImageURLs;
+@property (strong, nonatomic) NSArray *dataArray;
+@property (strong, nonatomic) NSArray *randomImageURLs;
 @end
 
 @implementation TestTableViewController
@@ -41,11 +39,6 @@ extern UIImage* ImageFromCacheWithURL(NSString* url);
                            @"http://www.dickson-constant.com/medias/images/catalogue/api/5029-paris-red-680.jpg",
                            @"http://fc01.deviantart.net/fs30/f/2008/166/7/d/Apple_on_the_red_carpet_by_shamrock593.jpg",
                            @"http://upload.wikimedia.org/wikipedia/commons/e/e5/Solid_blue.png",
-                           @"http://www.colourbox.com/preview/3174257-299019-stylized-tooth-in-circle-isolated-on-white-background-vector-illustration.jpg",
-                           @"http://u-wanna-bet.com/wp-content/uploads/2012/12/psychedelic-propeller-iphone-casino-optical-illusion.png",
-                           @"http://www.hdwallpapersonly.com/wp-content/uploads/2013/03/Optical-illusions-1.jpg",
-                           @"http://inspirationfeed.com/wp-content/uploads/2011/04/optical-illusions-051.jpg",
-                           @"http://n7ugc.disney.go.com/item/karalauree97/925_2gs11k6Twm6a000011Y4wOw0-h-8b9862-as/OPTICAL%20ILLUSION!%20Vote%20if%20cool!__600_450_q50.jpg",
                            ];
   
   self.dataArray = [self dataForDataArray];
@@ -63,31 +56,46 @@ extern UIImage* ImageFromCacheWithURL(NSString* url);
   NSMutableArray *array = [NSMutableArray array];
   
   // LOAD DATA
-  NSMutableString *longString = [NSMutableString stringWithString:@"This is a base string"];
+  NSMutableString *longString = [NSMutableString stringWithString:@"A base line string"];
+  NSMutableString *dynString = [NSMutableString stringWithString:@"A base string"];
   
-  for (int x = 0; x < 7; x++)
+  NSInteger numDataPayloads = 21;
+  
+  for (int x = 0; x < numDataPayloads; x++)
   {
-    [longString appendFormat:@"\rDynamic line %d", x + 1];
+    // returns vs longer lines
+    NSString* lineString = longString;
+    if (x % 2 == 0)
+      lineString = dynString;
+    
+    [dynString appendFormat:@" dynamic text %d", x + 1];
+    [longString appendFormat:@"\r --dynamic line %d--", x + 1];
+
     NSMutableDictionary *dict = [@{
-                                   @"timestamp": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterMediumStyle],
-                                   @"message": [NSString stringWithString:longString],
+                                   @"timestamp": [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle],
+                                   @"message": [NSString stringWithString:lineString],
                                    @"sender": @"me",
-                                   @"readreceipt": @"Read",
+                                   @"readreceipt": @"Message Delivered",
                                    } mutableCopy];
     
-    // every other from a different person.
-    if (x % 2 == 0 && dict[@"sender"] != nil)
+    // make every third message from a different person.
+    if ((x + 2) % 3 == 0 && dict[@"sender"] != nil)
       dict[@"sender"] = @"you";
     
+    // make every third message an image.
     if (x % 3 == 0)
     {
-      NSString* url = [self.randomImageURLs objectAtIndex:arc4random() % (self.randomImageURLs.count - 1)];
+      NSString *url = [self.randomImageURLs objectAtIndex:arc4random() % (self.randomImageURLs.count - 1)];
       if (url)
         dict[@"url"] = url;
     }
+
+    // every third message show a timestamp
+    if ((x + 1) % 3 != 0)
+      [dict removeObjectForKey:@"timestamp"];
     
-    // only on the last item
-    if (x + 1 != 7)
+    // only on the last item do we want to see a read receipt
+    if (x + 1 != numDataPayloads)
       [dict removeObjectForKey:@"readreceipt"];
     
     [array addObject:dict];
@@ -96,9 +104,9 @@ extern UIImage* ImageFromCacheWithURL(NSString* url);
   // cache the images up front
   for (NSDictionary *dict in array)
   {
-    NSString* url = dict[@"url"];
+    NSString *url = dict[@"url"];
     if (url.length)
-      ImageFromCacheWithURL(url);
+      [CustomTableViewCell imageFromCacheWithURL:url];
   }
   
   return array;

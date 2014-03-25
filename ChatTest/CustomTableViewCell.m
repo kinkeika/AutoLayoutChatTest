@@ -14,25 +14,6 @@
 extern TestTableViewController* g_testTableController;
 
 
-UIImage* ImageFromCacheWithURL(NSString* url)
-{
-  static NSMutableDictionary *storage = nil;
-  
-  if (!storage)
-    storage = [NSMutableDictionary dictionary];
-  
-  UIImage *image = storage[url];
-  if (!image && url.length)
-  {
-    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-    if (image)
-      storage[url] = image;
-  }
-  
-  return image;
-}
-
-
 #define kMaxBubbleWidth               ([UIScreen mainScreen].applicationFrame.size.width * 0.7)   // 70%
 #define kBubbleWidthOffset            ([UIScreen mainScreen].applicationFrame.size.width - kMaxBubbleWidth)
 #define kSRLabelMarginForMessageCell  5.0
@@ -101,6 +82,28 @@ UIImage* ImageFromCacheWithURL(NSString* url)
 }
 
 
+#pragma mark -
+
+
++ (UIImage *)imageFromCacheWithURL:(NSString *)url
+{
+  static NSMutableDictionary *storage = nil;
+  
+  if (!storage)
+    storage = [NSMutableDictionary dictionary];
+  
+  UIImage *image = storage[url];
+  if (!image && url.length)
+  {
+    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    if (image)
+      storage[url] = image;
+  }
+  
+  return image;
+}
+
+
 + (CGFloat)heightForCellWithData:(NSDictionary *)message nextRowData:(NSDictionary *)nextMessage
 {
   CGFloat labelHeight = 21.0;
@@ -135,7 +138,6 @@ UIImage* ImageFromCacheWithURL(NSString* url)
   {
     // image height.
     retVal += kStandardThumbnailSize.height;
-#warning    // if this is an icon, return the image icon size instead of the actual image
   }
   
   return retVal;
@@ -149,7 +151,7 @@ UIImage* ImageFromCacheWithURL(NSString* url)
   if (!font)
     return CGSizeZero;
   
-  NSString* str = message[@"message"];
+  NSString *str = message[@"message"];
   
   CGRect stringRect = [str boundingRectWithSize:CGSizeMake(maxWidth, 99999)
                                         options:NSStringDrawingUsesLineFragmentOrigin
@@ -173,9 +175,6 @@ UIImage* ImageFromCacheWithURL(NSString* url)
    we want.  I hear this is expensive, though if that's any different than changing
    the priority I don't know.
    */
-  
-  self.imageViewWidthConstraint.constant = kStandardThumbnailSize.width;
-  self.maskViewWidthConstraint.constant = kStandardThumbnailSize.width;
   
   // image adjustments
   if (toRight)
@@ -236,7 +235,12 @@ UIImage* ImageFromCacheWithURL(NSString* url)
     self.textView.text = nil;
     self.bubbleView.hidden = YES;
 
-    self.urlImageView.image = ImageFromCacheWithURL(url);
+    self.urlImageView.image = [CustomTableViewCell imageFromCacheWithURL:url];
+    self.urlImageView.clipsToBounds = YES;
+    if (self.urlImageView.image.size.width > kStandardThumbnailSize.width || self.urlImageView.image.size.height > kStandardThumbnailSize.height)
+      self.urlImageView.contentMode = UIViewContentModeScaleAspectFill;
+    else
+      self.urlImageView.contentMode = UIViewContentModeScaleToFill;
     self.urlImageView.hidden = NO;
     
     self.maskImage.image = [self maskImageForType:messageFromMe];
@@ -251,7 +255,7 @@ UIImage* ImageFromCacheWithURL(NSString* url)
     self.maskImage.image = nil;
 
     // handle background bubble
-    self.bubbleView.image = [self bubbleImageForColor:[UIColor grayColor] type:messageFromMe];  // YES is left
+    self.bubbleView.image = [self bubbleImageForColor:[UIColor colorWithRed:0.25 green:0.5 blue:0.4 alpha:1.0] type:messageFromMe];  // YES is left
   }
   
   // update data-based constraints
@@ -278,6 +282,10 @@ UIImage* ImageFromCacheWithURL(NSString* url)
   CGFloat rightMargin = 10;
   self.bubbleViewWidthConstraint.constant = [[self class] textSizeForMessage:message withFont:self.textView.font].width + leftMargin + rightMargin;
   self.textViewWidthConstraint.constant = self.bubbleViewWidthConstraint.constant - rightMargin;
+  
+  // update image widths
+  self.imageViewWidthConstraint.constant = kStandardThumbnailSize.width;
+  self.maskViewWidthConstraint.constant = kStandardThumbnailSize.width;
   
   // update constraints for non-standard widths (short text or images)
   [self updateWidthConstraints:messageFromMe];

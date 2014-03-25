@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PHFComposeBarView.h"
 
-@interface SRViewController : UIViewController <PHFComposeBarViewDelegate>
+@interface SRViewController : UIViewController
 
 @end

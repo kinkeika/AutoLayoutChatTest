@@ -22,11 +22,6 @@
 		D8DC50FB18DB42330099A30B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8DC50DA18DB42330099A30B /* UIKit.framework */; };
 		D8DC510318DB42330099A30B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8DC510118DB42330099A30B /* InfoPlist.strings */; };
 		D8DC510518DB42330099A30B /* ChatTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC510418DB42330099A30B /* ChatTestTests.m */; };
-		D8DC511918DB432C0099A30B /* PHFComposeBarView_Button.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC511218DB432C0099A30B /* PHFComposeBarView_Button.m */; };
-		D8DC511A18DB432C0099A30B /* PHFComposeBarView_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC511418DB432C0099A30B /* PHFComposeBarView_TextView.m */; };
-		D8DC511B18DB432C0099A30B /* PHFComposeBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC511618DB432C0099A30B /* PHFComposeBarView.m */; };
-		D8DC511C18DB432C0099A30B /* PHFDelegateChain.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC511818DB432C0099A30B /* PHFDelegateChain.m */; };
-		D8DC512018DB433C0099A30B /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC511F18DB433C0099A30B /* DAKeyboardControl.m */; };
 		D8DC512318DB43790099A30B /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC512218DB43790099A30B /* TestTableViewController.m */; };
 		D8DC512618DB4CE80099A30B /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DC512518DB4CE80099A30B /* CustomTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -63,16 +58,6 @@
 		D8DC510018DB42330099A30B /* ChatTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChatTestTests-Info.plist"; sourceTree = "<group>"; };
 		D8DC510218DB42330099A30B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D8DC510418DB42330099A30B /* ChatTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatTestTests.m; sourceTree = "<group>"; };
-		D8DC511118DB432C0099A30B /* PHFComposeBarView_Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFComposeBarView_Button.h; sourceTree = "<group>"; };
-		D8DC511218DB432C0099A30B /* PHFComposeBarView_Button.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFComposeBarView_Button.m; sourceTree = "<group>"; };
-		D8DC511318DB432C0099A30B /* PHFComposeBarView_TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFComposeBarView_TextView.h; sourceTree = "<group>"; };
-		D8DC511418DB432C0099A30B /* PHFComposeBarView_TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFComposeBarView_TextView.m; sourceTree = "<group>"; };
-		D8DC511518DB432C0099A30B /* PHFComposeBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFComposeBarView.h; sourceTree = "<group>"; };
-		D8DC511618DB432C0099A30B /* PHFComposeBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFComposeBarView.m; sourceTree = "<group>"; };
-		D8DC511718DB432C0099A30B /* PHFDelegateChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFDelegateChain.h; sourceTree = "<group>"; };
-		D8DC511818DB432C0099A30B /* PHFDelegateChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFDelegateChain.m; sourceTree = "<group>"; };
-		D8DC511E18DB433C0099A30B /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
-		D8DC511F18DB433C0099A30B /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		D8DC512118DB43790099A30B /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
 		D8DC512218DB43790099A30B /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
 		D8DC512418DB4CE80099A30B /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
@@ -136,7 +121,6 @@
 		D8DC50DC18DB42330099A30B /* ChatTest */ = {
 			isa = PBXGroup;
 			children = (
-				D8DC511018DB431E0099A30B /* external */,
 				D8DC50E518DB42330099A30B /* SRAppDelegate.h */,
 				D8DC50E618DB42330099A30B /* SRAppDelegate.m */,
 				D8DC50E818DB42330099A30B /* Main_iPhone.storyboard */,
@@ -181,31 +165,6 @@
 				D8DC510118DB42330099A30B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D8DC511018DB431E0099A30B /* external */ = {
-			isa = PBXGroup;
-			children = (
-				D8DC511D18DB433C0099A30B /* DAKeyboardControl */,
-				D8DC511118DB432C0099A30B /* PHFComposeBarView_Button.h */,
-				D8DC511218DB432C0099A30B /* PHFComposeBarView_Button.m */,
-				D8DC511318DB432C0099A30B /* PHFComposeBarView_TextView.h */,
-				D8DC511418DB432C0099A30B /* PHFComposeBarView_TextView.m */,
-				D8DC511518DB432C0099A30B /* PHFComposeBarView.h */,
-				D8DC511618DB432C0099A30B /* PHFComposeBarView.m */,
-				D8DC511718DB432C0099A30B /* PHFDelegateChain.h */,
-				D8DC511818DB432C0099A30B /* PHFDelegateChain.m */,
-			);
-			name = external;
-			sourceTree = "<group>";
-		};
-		D8DC511D18DB433C0099A30B /* DAKeyboardControl */ = {
-			isa = PBXGroup;
-			children = (
-				D8DC511E18DB433C0099A30B /* DAKeyboardControl.h */,
-				D8DC511F18DB433C0099A30B /* DAKeyboardControl.m */,
-			);
-			path = DAKeyboardControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,17 +265,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8DC511918DB432C0099A30B /* PHFComposeBarView_Button.m in Sources */,
 				D8DC50E318DB42330099A30B /* main.m in Sources */,
-				D8DC511B18DB432C0099A30B /* PHFComposeBarView.m in Sources */,
 				D8DC50F018DB42330099A30B /* SRViewController.m in Sources */,
 				D8DC50E718DB42330099A30B /* SRAppDelegate.m in Sources */,
-				D8DC512018DB433C0099A30B /* DAKeyboardControl.m in Sources */,
 				D8DC512318DB43790099A30B /* TestTableViewController.m in Sources */,
 				D816645018DB59E100D75B9B /* UIImage+ImageBubbles.m in Sources */,
-				D8DC511C18DB432C0099A30B /* PHFDelegateChain.m in Sources */,
 				D8DC512618DB4CE80099A30B /* CustomTableViewCell.m in Sources */,
-				D8DC511A18DB432C0099A30B /* PHFComposeBarView_TextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
