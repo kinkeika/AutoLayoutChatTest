@@ -105,6 +105,9 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VGd-AA-rl1" userLabel="Image View (Bubble)">
                                             <rect key="frame" x="0.0" y="42" width="240" height="122"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="240" id="aDP-Qp-BXb"/>
+                                            </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read Receipt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57n-PA-S8y">
                                             <rect key="frame" x="10" y="164" width="300" height="21"/>
@@ -119,6 +122,9 @@
                                             <rect key="frame" x="10" y="42" width="225" height="122"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="225" id="WGb-vA-fVK"/>
+                                            </constraints>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -128,22 +134,22 @@
                                         <constraint firstItem="ELq-a9-mue" firstAttribute="top" secondItem="Ikd-Vc-0gH" secondAttribute="bottom" id="4MO-0H-VgQ"/>
                                         <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="Vdg-V4-igA" secondAttribute="bottom" id="6xD-BM-m2h"/>
                                         <constraint firstItem="Vdg-V4-igA" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" priority="750" id="7sj-YN-No0"/>
-                                        <constraint firstAttribute="trailing" secondItem="VGd-AA-rl1" secondAttribute="trailing" constant="80" id="ARs-Nl-0EQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="VGd-AA-rl1" secondAttribute="trailing" priority="250" constant="10" id="ARs-Nl-0EQ"/>
                                         <constraint firstAttribute="trailing" secondItem="ELq-a9-mue" secondAttribute="trailing" priority="250" id="Cn9-2C-rSL"/>
                                         <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="ELq-a9-mue" secondAttribute="bottom" id="G0q-ix-Eee"/>
                                         <constraint firstAttribute="trailing" secondItem="Vdg-V4-igA" secondAttribute="trailing" priority="250" id="LFV-ZI-nzy"/>
                                         <constraint firstItem="VGd-AA-rl1" firstAttribute="top" secondItem="Ikd-Vc-0gH" secondAttribute="bottom" id="NeV-Ko-hdS"/>
-                                        <constraint firstItem="TfQ-dN-4cO" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" constant="10" id="QBk-pd-oi4"/>
+                                        <constraint firstItem="TfQ-dN-4cO" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" priority="750" constant="10" id="QBk-pd-oi4"/>
                                         <constraint firstItem="hrq-UI-ugb" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" id="S2W-7O-bsq"/>
                                         <constraint firstItem="Ikd-Vc-0gH" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" constant="10" id="Si0-rd-EIx"/>
                                         <constraint firstItem="ELq-a9-mue" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" priority="750" id="TB1-6h-nIQ"/>
-                                        <constraint firstItem="VGd-AA-rl1" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" id="WjV-rm-mmS"/>
+                                        <constraint firstItem="VGd-AA-rl1" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" priority="750" id="WjV-rm-mmS"/>
                                         <constraint firstAttribute="bottom" secondItem="57n-PA-S8y" secondAttribute="bottom" id="X24-Ju-4a2"/>
                                         <constraint firstAttribute="trailing" secondItem="57n-PA-S8y" secondAttribute="trailing" constant="10" id="YcM-gt-eSC"/>
                                         <constraint firstAttribute="trailing" secondItem="Ikd-Vc-0gH" secondAttribute="trailing" constant="10" id="Zgb-rX-Xab"/>
                                         <constraint firstItem="57n-PA-S8y" firstAttribute="leading" secondItem="pUm-Xf-r8u" secondAttribute="leading" constant="10" id="ZmZ-FV-Q8I"/>
                                         <constraint firstAttribute="trailing" secondItem="hrq-UI-ugb" secondAttribute="trailing" id="efh-7v-DEW"/>
-                                        <constraint firstAttribute="trailing" secondItem="TfQ-dN-4cO" secondAttribute="trailing" constant="85" id="hjo-Oz-w5H"/>
+                                        <constraint firstAttribute="trailing" secondItem="TfQ-dN-4cO" secondAttribute="trailing" priority="250" constant="15" id="hjo-Oz-w5H"/>
                                         <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="TfQ-dN-4cO" secondAttribute="bottom" id="j8l-fj-C7G"/>
                                         <constraint firstItem="57n-PA-S8y" firstAttribute="top" secondItem="VGd-AA-rl1" secondAttribute="bottom" id="jYO-Iu-XTu"/>
                                         <constraint firstItem="TfQ-dN-4cO" firstAttribute="top" secondItem="Ikd-Vc-0gH" secondAttribute="bottom" id="jtM-7U-cme"/>
@@ -156,6 +162,7 @@
                                     <outlet property="bubbleView" destination="VGd-AA-rl1" id="6n9-qB-5ek"/>
                                     <outlet property="bubbleViewLeadingSpaceConstraint" destination="WjV-rm-mmS" id="Xpu-sB-0Ji"/>
                                     <outlet property="bubbleViewTrailingSpaceConstraint" destination="ARs-Nl-0EQ" id="60A-jA-Lgu"/>
+                                    <outlet property="bubbleViewWidthConstraint" destination="aDP-Qp-BXb" id="43m-qz-CKb"/>
                                     <outlet property="imageViewLeadingConstraint" destination="7sj-YN-No0" id="G5D-hF-SZX"/>
                                     <outlet property="imageViewTrailingConstraint" destination="LFV-ZI-nzy" id="1fX-Gt-plg"/>
                                     <outlet property="imageViewWidthConstraint" destination="7Dg-Mk-CGr" id="mzt-of-qOa"/>
@@ -170,6 +177,7 @@
                                     <outlet property="textView" destination="TfQ-dN-4cO" id="Bp8-E5-40z"/>
                                     <outlet property="textViewLeadingSpaceConstraint" destination="QBk-pd-oi4" id="VbU-KG-hjg"/>
                                     <outlet property="textViewTrailingSpaceConstraint" destination="hjo-Oz-w5H" id="SxV-TE-SUd"/>
+                                    <outlet property="textViewWidthConstraint" destination="WGb-vA-fVK" id="gNl-jI-C4p"/>
                                     <outlet property="timestamp" destination="hrq-UI-ugb" id="sTb-no-hcV"/>
                                     <outlet property="timestampHeightConstraint" destination="g67-gI-wy5" id="ybE-3a-gRs"/>
                                     <outlet property="urlImageView" destination="Vdg-V4-igA" id="STR-ZF-Cko"/>

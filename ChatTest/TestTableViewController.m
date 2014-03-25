@@ -65,7 +65,7 @@ extern UIImage* ImageFromCacheWithURL(NSString* url);
   // LOAD DATA
   NSMutableString *longString = [NSMutableString stringWithString:@"This is a base string"];
   
-  for (int x = 0; x < 21; x++)
+  for (int x = 0; x < 7; x++)
   {
     [longString appendFormat:@"\rDynamic line %d", x + 1];
     NSMutableDictionary *dict = [@{
@@ -87,7 +87,7 @@ extern UIImage* ImageFromCacheWithURL(NSString* url);
     }
     
     // only on the last item
-    if (x + 1 != 10)
+    if (x + 1 != 7)
       [dict removeObjectForKey:@"readreceipt"];
     
     [array addObject:dict];

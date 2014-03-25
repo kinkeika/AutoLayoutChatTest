@@ -48,6 +48,7 @@ UIImage* ImageFromCacheWithURL(NSString* url)
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewTrailingSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewLeadingSpaceConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bubbleViewWidthConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskViewLeadingSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskViewTrailingSpaceConstraint;
@@ -55,6 +56,7 @@ UIImage* ImageFromCacheWithURL(NSString* url)
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewLeadingSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewTrailingSpaceConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewWidthConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewLeadingConstraint;
@@ -163,108 +165,57 @@ UIImage* ImageFromCacheWithURL(NSString* url)
 #pragma mark -
 
 
-- (void)shiftCell:(BOOL)toRight
+- (void)updateWidthConstraints:(BOOL)toRight
 {
+  /* tricksy.  We set a constraint holding the image, bubble and image mask to the left
+   AND the right.  To choose which we want we change the priority of the constraints.
+   An alternate method would be to remove the proper constraint and re-create the one
+   we want.  I hear this is expensive, though if that's any different than changing
+   the priority I don't know.
+   */
+  
+  self.imageViewWidthConstraint.constant = kStandardThumbnailSize.width;
+  self.maskViewWidthConstraint.constant = kStandardThumbnailSize.width;
+  
+  // image adjustments
   if (toRight)
   {
-    // adjust bubble view
-    if (self.bubbleViewTrailingSpaceConstraint.constant > self.bubbleViewLeadingSpaceConstraint.constant)
-    {
-      CGFloat tempValue = self.bubbleViewLeadingSpaceConstraint.constant;
-      self.bubbleViewLeadingSpaceConstraint.constant = self.bubbleViewTrailingSpaceConstraint.constant;
-      self.bubbleViewTrailingSpaceConstraint.constant = tempValue;
-    }
+    // shifted right
+    self.maskViewLeadingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
+    self.imageViewLeadingConstraint.priority = UILayoutPriorityFittingSizeLevel;
+    self.bubbleViewLeadingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
+    self.textViewLeadingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
     
-    // adjust mask view
-    if (self.maskViewTrailingSpaceConstraint.constant > self.maskViewLeadingSpaceConstraint.constant)
-    {
-      CGFloat tempValue = self.maskViewLeadingSpaceConstraint.constant;
-      self.maskViewLeadingSpaceConstraint.constant = self.maskViewTrailingSpaceConstraint.constant;
-      self.maskViewTrailingSpaceConstraint.constant = tempValue;
-    }
-    
-    // adjust text view
-    if (self.textViewTrailingSpaceConstraint.constant > self.textViewLeadingSpaceConstraint.constant)
-    {
-      CGFloat tempValue = self.textViewLeadingSpaceConstraint.constant;
-      self.textViewLeadingSpaceConstraint.constant = self.textViewTrailingSpaceConstraint.constant;
-      self.textViewTrailingSpaceConstraint.constant = tempValue;
-    }
-    
+    self.maskViewTrailingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
+    self.imageViewTrailingConstraint.priority = UILayoutPriorityDefaultHigh;
+    self.bubbleViewTrailingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
+    self.textViewTrailingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
+
     // adjust the labels
     self.sender.textAlignment = NSTextAlignmentRight;
     self.readReceipt.textAlignment = NSTextAlignmentRight;
   }
   else
   {
-    // bubble view
-    if (self.bubbleViewTrailingSpaceConstraint.constant < self.bubbleViewLeadingSpaceConstraint.constant)
-    {
-      CGFloat tempValue = self.bubbleViewLeadingSpaceConstraint.constant;
-      self.bubbleViewLeadingSpaceConstraint.constant = self.bubbleViewTrailingSpaceConstraint.constant;
-      self.bubbleViewTrailingSpaceConstraint.constant = tempValue;
-    }
+    // shifted left
+    self.maskViewLeadingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
+    self.imageViewLeadingConstraint.priority = UILayoutPriorityDefaultHigh;
+    self.bubbleViewLeadingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
+    self.textViewLeadingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
     
-    // mask view
-    if (self.maskViewTrailingSpaceConstraint.constant < self.maskViewLeadingSpaceConstraint.constant)
-    {
-      CGFloat tempValue = self.maskViewLeadingSpaceConstraint.constant;
-      self.maskViewLeadingSpaceConstraint.constant = self.maskViewTrailingSpaceConstraint.constant;
-      self.maskViewTrailingSpaceConstraint.constant = tempValue;
-    }
-    
-    // adjust text view
-    if (self.textViewTrailingSpaceConstraint.constant < self.textViewLeadingSpaceConstraint.constant)
-    {
-      CGFloat tempValue = self.textViewLeadingSpaceConstraint.constant;
-      self.textViewLeadingSpaceConstraint.constant = self.textViewTrailingSpaceConstraint.constant;
-      self.textViewTrailingSpaceConstraint.constant = tempValue;
-    }
-    
+    self.maskViewTrailingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
+    self.imageViewTrailingConstraint.priority = UILayoutPriorityFittingSizeLevel;
+    self.bubbleViewTrailingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
+    self.textViewTrailingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
+
     // adjust the labels
     self.sender.textAlignment = NSTextAlignmentLeft;
     self.readReceipt.textAlignment = NSTextAlignmentLeft;
   }
-}
 
-
-- (void)updateWidthConstraints:(BOOL)toRight
-{
-  if (!self.maskImage.hidden)
+  // text adjustments
+  if (self.maskImage.hidden)
   {
-    /* tricksy.  We set a constraint holding the image and image mask to the left AND the
-     right.  To choose which we want we change the priority of the constraints.  An 
-     alternate method would be to remove the proper constraint and re-create the one
-     we want.  I hear this is expensive, though if that's any different than changing
-     the priority I don't know.
-     */
-    
-    self.imageViewWidthConstraint.constant = kStandardThumbnailSize.width;
-    self.maskViewWidthConstraint.constant = kStandardThumbnailSize.width;
-    
-    // image adjustments
-    if (toRight)
-    {
-      // shifted right
-      self.maskViewLeadingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
-      self.imageViewLeadingConstraint.priority = UILayoutPriorityFittingSizeLevel;
-      
-      self.maskViewTrailingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
-      self.imageViewTrailingConstraint.priority = UILayoutPriorityDefaultHigh;
-    }
-    else
-    {
-      // shifted left
-      self.maskViewLeadingSpaceConstraint.priority = UILayoutPriorityDefaultHigh;
-      self.imageViewLeadingConstraint.priority = UILayoutPriorityDefaultHigh;
-      
-      self.maskViewTrailingSpaceConstraint.priority = UILayoutPriorityFittingSizeLevel;
-      self.imageViewTrailingConstraint.priority = UILayoutPriorityFittingSizeLevel;
-    }
-  }
-  else
-  {
-    // text adjustments
   }
 }
 
@@ -317,18 +268,16 @@ UIImage* ImageFromCacheWithURL(NSString* url)
     self.timestampHeightConstraint.constant = self.timestampHeight;
 
   // read receipt
-  if (!self.readReceipt.text.length)
-  {
-    if ([nextMessage[@"timestamp"] length] || [nextMessage[@"sender"] length])
-      self.readReceiptheightConstraint.constant = 0;
-  }
+  if (!self.readReceipt.text.length && ([nextMessage[@"timestamp"] length] || [nextMessage[@"sender"] length]))
+    self.readReceiptheightConstraint.constant = 0;
   else
-  {
     self.readReceiptheightConstraint.constant = self.readReceiptHeight;
-  }
   
-  // update constraints based on left/right
-  [self shiftCell:messageFromMe];
+  // update text widths
+  CGFloat leftMargin = 10;
+  CGFloat rightMargin = 10;
+  self.bubbleViewWidthConstraint.constant = [[self class] textSizeForMessage:message withFont:self.textView.font].width + leftMargin + rightMargin;
+  self.textViewWidthConstraint.constant = self.bubbleViewWidthConstraint.constant - rightMargin;
   
   // update constraints for non-standard widths (short text or images)
   [self updateWidthConstraints:messageFromMe];
